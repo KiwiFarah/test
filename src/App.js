@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Highscore from './HighScore';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+class Application extends Component{
+  constructor(props){
+    super(props);
+
+    this.state = {
+      count:0,
+      highscore: false
+    }
+  }
+
+  componentDidUpdate(props, state){
+    console.log("component updated from ",state, " to ",this.state )
+    if (this.state.count > 10 && this.state.count !== state.count && !this.state.highscore){
+      console.log("Updating state");
+      this.setState({highscore: true})
+
+    }
+  }
+
+  handClick = () => {
+    this.setState({count: this.state.count + 1})
+  }
+
+  render(){
+    return(
+      <div>
+       <h1>You clicked the button {this.state.count} times</h1> 
+      <Highscore
+      highscore={this.state.highscore}/>
+        <span>
+          <button onClick={() => this.handClick()}>Click me</button>
+        </span>
+
+      </div>
+    )
+
+  }
+  }
+
+  export default Application;
