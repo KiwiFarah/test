@@ -25,12 +25,22 @@ class Application extends Component{
     this.setState({count: this.state.count + 1})
   }
 
+  handleReset = (e) => {
+    console.log("Event is", e)
+    this.setState({
+      count:0,
+      highscore: false
+    })
+  }
+ 
   render(){
     return(
       <div>
        <h1>You clicked the button {this.state.count} times</h1> 
       <Highscore
-      highscore={this.state.highscore}/>
+      highscore={this.state.highscore}
+      reset={this.handleReset}
+      />
         <span>
           <button onClick={() => this.handClick()}>Click me</button>
         </span>
